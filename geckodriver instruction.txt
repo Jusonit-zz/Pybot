@@ -1,0 +1,7 @@
+if using Firefox as the browser choice, download geckodriver and have this line in your code:
+
+driver = webdriver.Firefox(executable_path=r'D:\geckodriver.exe')
+
+or update PATH to have directory that contains the exe
+
+or move the exe file to a folder in your PATH environment variable
