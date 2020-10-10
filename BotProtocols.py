@@ -1,5 +1,5 @@
 from time import sleep
-from random import randint
+import random
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -37,12 +37,12 @@ class Surface:
             browser.execute_script("window.scrollTo(0, document.body.scrollHeight);") #scroll down
             try:
                 sleep(random.randint(2, 4))
-                like_button = browser.find_element_by_xpath("//svg[@aria-label='Like']")
+                like_button = browser.find_element_by_class_name('fr66n') # the like button
                 like_button.click() #click like
                 for second in reversed(range(0, random.randint(18, 28))):
-                    print_same_line("#" + hashtag + ': unique photos left: ' + str(unique_photos) + " | Sleeping " + str(second))
+                    print("#" + hashtag + ': unique photos left: ' + str(unique_photos) + " | Sleeping " + str(second))
                     sleep(1)
             except Exception as e:
-                print("exception2")
+                print("exception!!")
                 sleep(2)
             unique_photos -= 1
