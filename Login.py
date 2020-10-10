@@ -13,5 +13,5 @@ class LoginProtocols:
         password_input.send_keys(password)
         login_button = browser.find_element_by_xpath("//button[@type='submit']")
         login_button.click()
-        sleep(5)
+        sleep(2)
     

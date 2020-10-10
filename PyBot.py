@@ -20,5 +20,7 @@ if __name__ == "__main__":
 
     Bot = Surface(browser)
     Bot.like_photos("beauty")
+
+    print("finished")
     
     browser.close()
