@@ -1,26 +1,50 @@
 from selenium.webdriver.common.keys import Keys
 from BotProtocols import Surface
-from Login import LoginProtocols
 from selenium import webdriver
-from random import randint
 from time import sleep
+import random
 import sys
 
 if __name__ == "__main__":
     
     username = "username"
     password = "password"
-    browser = webdriver.Firefox()
-    browser.implicitly_wait(5) #if selenium can't find an element, it waits 5 seconds and tries again
-    Log = LoginProtocols(browser)
-    Log.login(username, password, browser)
-    
-    errors = browser.find_elements_by_css_selector('#error_message')
-    assert len(errors) == 0
 
-    Bot = Surface(browser)
-    Bot.like_photos("beauty")
+    Bot = Surface(username, password)
+    Bot.openPage()
+    Bot.login()
+    
+    
+
+    #list of hashtags to target
+    hashtag_list = ["f4f", "like4follow", "like4like", "likeforlike", "follow4follow"]
+    #list of comments to post
+    comment_list = [
+                        ["this", "the", "your"],
+                        ["photo", "picture", "pic", "shot", "snapshot"],
+                        ["is", "looks", "feels", "is really"],
+                        [
+                            "great","super","good", "very good", "good", "wow",
+                            "WOW","cool","GREAT","magnificent","magical",
+                            "very cool","stylish","beautiful","so beautiful","so stylish",
+                            "so professional","lovely","so lovely","very lovely","glorious",
+                            "so glorious","very glorious","adorable","excellent","amazing",
+                        ],
+                        [".", "..", "...", "!", "!!", "!!!"]
+                    ]
+
+    while True:
+        try:
+            tag = random.choice(hashtag_list) #random hashtag from the list
+            Bot.like_photos(tag)
+            Bot.type_comments(comment_list)
+            sleep(25)
+        except Exception:
+            print("exception")
+            Bot.closeBrowser()
+            sleep(60)
+            Bot = Surface(username, password)
+            Bot.login()
 
     print("finished")
-    
-    browser.close()
+    Bot.closeBrowser()
