@@ -29,7 +29,7 @@ class Surface:
         
         sleep(2)
 
-    def like_photos(self, hashtag):
+    def like_photos(self, hashtag, comment_list):
         browser = self.browser
         browser.get("https://www.instagram.com/explore/tags/" + hashtag + "/")
         sleep(2)
@@ -59,41 +59,32 @@ class Surface:
             try:
                 sleep(random.randint(2, 4))
                 like_button = browser.find_element_by_class_name('fr66n') # the like button
-                #like_button.click() #click like
+                like_button.click() #click like
+                self.type_comments(comment_list)
                 for second in reversed(range(0, random.randint(1, 3))):
                     print("#" + hashtag + ': unique photos left: ' + str(unique_photos) + " | Sleeping " + str(second))
                     sleep(1)
             except Exception as e:
-                print("exception!!")
                 sleep(2)
             unique_photos -= 1
-            break
             
     def type_comments(self, comment_list):
-        print("1")
-        comment = ( 
+        #comments in 1/5 chance
+        chance = random.randint(1,5)
+        
+        if chance == 5:
+            comment = ( 
                 comment_list[0][random.randint(0, 2)] + " " +
                 comment_list[1][random.randint(0, 4)] + " " +
                 comment_list[2][random.randint(0, 3)] + " " +
                 comment_list[3][random.randint(0, 25)] + " " +
                 comment_list[4][random.randint(0, 5)] 
                    )
-        print(comment)
-        print("2")
-        commentArea = self.browser.find_element_by_class_name('Ypffh')
-        print("3")
-        commentArea.click()
-        print("4")
-        commentArea = self.browser.find_element_by_class_name('Ypffh')
-        print("5")
-        post_button = self.browser.find_element_by_xpath("//button[@type='submit']")
-        print("6")
-        commentArea.send_keys(comment)
-        print("8")
-        #comments in 1/5 chance
-        #chance = random.randint(1,5)
-        #if chance == 5:
-        #    print(comment)
+            commentArea = self.browser.find_element_by_class_name('Ypffh')
+            commentArea.click()
+            commentArea = self.browser.find_element_by_class_name('Ypffh')
+            commentArea.send_keys(comment)
+        
 
     def closeBrowser(self):
         self.browser.close()

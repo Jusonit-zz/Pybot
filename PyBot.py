@@ -36,15 +36,12 @@ if __name__ == "__main__":
     while True:
         try:
             tag = random.choice(hashtag_list) #random hashtag from the list
-            Bot.like_photos(tag)
-            Bot.type_comments(comment_list)
+            Bot.like_photos(tag, comment_list)
             sleep(25)
         except Exception:
-            print("exception")
             Bot.closeBrowser()
             sleep(60)
             Bot = Surface(username, password)
             Bot.login()
 
-    print("finished")
     Bot.closeBrowser()
